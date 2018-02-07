@@ -1,0 +1,27 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Trigger</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Configuration</span>
+        <ul>
+            <?php while ($row = mysql_fetch_array($result)) {?>
+                <li class="li">
+                    <p class="l2" title="<?php echo $row[1]; ?>"><?php echo $row[1]; ?></p><p class="l8" title="<?php echo $row[2]; ?>"><?php echo $row[2]; ?></p>
+                    <p class="l8" title="<?php echo $row[3]; ?>"><?php echo substr($row[3], 0, 10); ?></p><p class="l9" title="<?php echo $row[4]; ?>"><?php echo $row[4]; ?></p>
+                    <p class="l2" title="<?php echo $row[5]; ?>"><?php echo $row[5]; ?></p><p class="l4" title="<?php echo $row[6]; ?>"><?php echo $row[6]; ?></p>
+                    <p class="l8" title="<?php echo $row[7]; ?>"><?php echo $row[7]; ?></p><p class="l2" title="<?php echo $row[8]; ?>"><?php echo $row[8]; ?></p>
+                    <p class="l2" title="delete"><a href="<?php echo $this->url('operation',array('action' => 'delete', 'dbname' => $row[1], 'name' => $row[2])); ?>">delete</a></p>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+

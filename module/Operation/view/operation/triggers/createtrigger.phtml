@@ -1,0 +1,94 @@
+<script>
+    var onecount2;
+    subcat2 = new Array();
+    <?php
+    $num2 = count($tbname);
+    ?>
+    onecount2=<?php echo $num2;?>;
+
+    <?php
+    for($j=0;$j<$num2;$j++)
+    {
+    ?>
+    subcat2[<?php echo $j;?>] = new Array("<?php echo $tbname[$j][1];?>","<?php echo $tbname[$j][2];?>");
+    <?php }?>
+    function changelocation(val){
+        document.myform.table.length = 0;
+        var val=val;
+        var j;
+        for (j=0;j < onecount2; j++){
+            if (subcat2[j][0] == val)
+               document.myform.table.options[document.myform.table.length] = new Option(subcat2[j][1], subcat2[j][1]);
+        }
+    }
+</script>
+
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li class="current"><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Create Trigger</span>
+        <div class="triggercontent">
+            <form method="post"  name="myform" action="<?php echo $this->url('triggers',array('action' => 'createtriggerhandle')); ?>">
+                <div class="lblf">DATABASE NAME</div>
+                <div class="inprt">
+                    <select name="databaseName" onChange="changelocation(document.myform.databaseName.options[document.myform.databaseName.selectedIndex].value)" size="1">
+                        <option style="color: #CCCCCC;" selected>--please select database--</option>
+                        <?php
+                        $num = count($dbname);
+                        for($i=0;$i<$num;$i++)
+                        {
+                        ?>
+                        <option value="<?php echo $dbname[$i][0];?>"><?php echo $dbname[$i][0];?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="lblf">TRIGGER NAME</div>
+                <div class="inprt">
+                    <input type="text" name="triggerName" value="">
+                </div>
+                <div class="lblf">TABLE</div>
+                <div class="inprt">
+                    <select name="table" id="tbname" size=1></select>
+                </div>
+                <div class="lblf">TIMING</div>
+                <div class="inprt">
+                    <select name="timing">
+                        <option value="BEFORE">BEFORE</option>
+                        <option value="AFTER">AFTER</option>
+                    </select>
+                </div>
+                <div class="lblf">EVENT</div>
+                <div class="inprt">
+                    <select name="event">
+                        <option value="INSERT">INSERT</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="UPDATE">UPDATE</option>
+                    </select>
+                </div>
+                <div class="lblf">STATEMENT</div>
+                <div class="inprtxt">
+                    <textarea name="statement"></textarea>
+                </div>
+                <div class="lblf">USER</div>
+                <div class="inprt">
+                    <input type="text" name="user" value="">
+                </div>
+                <a href="<?php echo $this->url('triggers',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                <input type="submit" value="go" id="submit">
+            </form>
+        </div>
+        
+    </div>
+</div>
+

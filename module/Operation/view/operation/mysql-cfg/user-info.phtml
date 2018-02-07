@@ -1,0 +1,83 @@
+<?php 
+    echo "<script type='text/javascript'>more='".$this->url('mysqlcfg',array('action' => 'more'))."';delUser='".$this->url('mysqlcfg',array('action' => 'delUser'))."'</script>";
+?>
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information &nbsp;&nbsp;<a href="<?php echo $this->url('mysqlcfg',array('action' => 'addUser'))?>">Add User</a></span>
+            <ul>
+                <li class="li"><p  class="l7">Host</p><p class="l7">Username</p><p class="l4"></p><p class="l4">Option</p></li>
+                <?php
+                    $i=1;
+                    while ($row = mysql_fetch_row($re)){
+//                        print_r($row);
+                ?>
+                <li class="li" id="del<?php echo $i;?>">
+                    <p class="l7"><?php echo $row[0]?$row[0]:"NULL"; ?></p>
+                    <p class="l7"><?php echo $row[1]?$row[1]:"NULL"; ?></p>
+                    <p class="l4" title="delete"><a  class="delete" href="#" title="<?php echo $row[0]."/".$row[1]."/delUser";?>" id="<?php echo $i;?>">delete</a></p>
+                    <a class="ls" href="###" id="ls<?php echo $i; ?>">
+                        <img src="<?php echo $this->basePath('img/info.png') ?>"/>
+                    </a>
+                </li>
+                <li class="lf" id="tb<?php echo $i; ?>">
+                    <form method="post" action="###">
+                        <table>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>Object Rights:&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[3]=="Y" ? "checked" : "";  ?> disabled="true" value="select" />&nbsp;Select&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[4]=="Y" ? "checked" : "";  ?> disabled="true" value="insert" />&nbsp;Insert&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[5]=="Y" ? "checked" : "";  ?> disabled="true" value="update" />&nbsp;Update&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[6]=="Y" ? "checked" : "";  ?> disabled="true" value="delete" />&nbsp;Delete&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[21]=="Y" ? "checked" : "";  ?> disabled="true" value="execute" />&nbsp;Execute&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[25]=="Y" ? "checked" : "";  ?> disabled="true" value="showviewt" />&nbsp;Show view&nbsp;</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>DDL Rights:&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[7]=="Y" ? "checked" : "";  ?> disabled="true" value="create" />&nbsp;Create&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[16]=="Y" ? "checked" : "";  ?> disabled="true" value="alter" />&nbsp;Alter&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[14]=="Y" ? "checked" : "";  ?> disabled="true" value="reference" />&nbsp;Reference&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[15]=="Y" ? "checked" : "";  ?> disabled="true" value="index" />&nbsp;Index&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[24]=="Y" ? "checked" : "";  ?> disabled="true" value="index" />&nbsp;Create view&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[26]=="Y" ? "checked" : "";  ?> disabled="true" value="createroutine" />&nbsp;Create routine&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[27]=="Y" ? "checked" : "";  ?> disabled="true" value="alterroutine" />&nbsp;Alter routine&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[29]=="Y" ? "checked" : "";  ?> disabled="true" value="event" />&nbsp;Event&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[8]=="Y" ? "checked" : "";  ?> disabled="true" value="drop" />&nbsp;Drop&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[30]=="Y" ? "checked" : "";  ?> disabled="true" value="trigger" />&nbsp;Trigger&nbsp;</li>
+                                     </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Others Rights:&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[13]=="Y" ? "checked" : "";  ?> disabled="true" value="grantoption" />&nbsp;Grant option&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[19]=="Y" ? "checked" : "";  ?> disabled="true" value="createtemporary" />&nbsp;Create temporary tables&nbsp;</li>
+                                        <li><input type="checkbox" name="ObjectR" <?php echo $row[20]=="Y" ? "checked" : "";  ?> disabled="true" value="locktables" />&nbsp;Lock tables&nbsp;</li>
+                                    </ul> 
+                                </td>
+                                <td>
+                                    <a id="<?php echo 'more'.$i;?>" href="#" onclick="javascript:show('<?php echo $row[1]?>','<?php echo $row[0]?>','tb<?php echo $i; ?>','<?php echo 'more'.$i;?>');">Click to see more</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </li>
+                <?php $i++; } ?>
+            </ul>
+    </div>
+</div>
+<div class="dropdialog"></div>

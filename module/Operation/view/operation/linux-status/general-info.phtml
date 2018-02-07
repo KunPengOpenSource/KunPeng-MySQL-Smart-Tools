@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <ul>
+            <li class="li"><p class="l1">OS</p><p class="l1"><?php echo php_uname('s').php_uname('r');?></p></li>
+            <li class="li"><p class="l1">Uptime</p><p class="l1"><?php echo $uptime; ?></p></li>
+            <li class="li"><p class="l1">Server Time</p><p class="l1"><?php date_default_timezone_set("Asia/Shanghai");echo date('Y-m-d H:i:s',time());?></p></li>
+            <li class="li"><p class="l1">Hostname</p><p class="l1"><?php echo php_uname( 'n' );?></p></li>
+            <li class="li"><p class="l1">IP address</p><p class="l1"><?php echo $_SERVER["HTTP_HOST"] ;?></p></li>
+        </ul>
+    </div>
+</div>

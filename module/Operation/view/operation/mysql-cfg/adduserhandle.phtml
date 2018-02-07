@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+    <div class="right">
+        <span>Message</span>
+        <ul>
+            <div class="mess"><?php echo $mess;?></div>
+            <li class="float"><input type="button" name="back" value="back" onclick="javascript:history.go(-1);"></li>
+       </ul>
+    </div>
+</div>

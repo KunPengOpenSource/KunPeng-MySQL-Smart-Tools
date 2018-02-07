@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    function showSelectTextarea(){
+        var selectedText;
+        var e;
+        e=document.getElementById('sqltext');
+        //ie
+        if(document.selection&&(document.selection.type == "Text"))
+        {
+            selectedText=document.selection.createRange().text;
+        }
+        //firefox,chrome
+        else if(e.selectionStart != undefined && e.selectionEnd != undefined)
+        {
+            var start = e.selectionStart;
+            var end = e.selectionEnd;
+            selectedText=e.value.substring(start, end);
+        }
+        var sqltext = $.trim($('#sqltext').val());
+        if(sqltext===''){
+            return false;
+        }else{
+            if(selectedText===''){
+//                      alert(sqltext);
+                return sqltext;
+            }else{
+                selectedText=$.trim(selectedText);
+                if(selectedText===''){
+                    return false;
+                }else{
+//                            alert(selectedText);
+                    return selectedText;
+                }
+            }
+        }
+    }
+    $(function(){
+        $('#sqlhd').click(
+            function(){
+               var sql = showSelectTextarea();
+               if(!sql){
+                   alert('please put your sql');
+                   return false;
+               }
+               $.post('sqlhandle', {data:sql},
+                    function(data) {
+                        $('body>div').remove();
+                        $('body').append("<div>abc</div>");
+                        $('div').replaceWith(data)
+                    }
+//                      ,'json'
+                );
+            }
+        );
+    });
+</script>
+
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li class="current"><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>SQL Operation</span>
+        
+        <div style="height: 500px;">
+<!--            <form method="post" action="<?php echo $this->url('sqloperation',array('action' => 'sqlhandle')); ?>">-->
+                <textarea name="sql" id="sqltext" cols="90" rows="10"></textarea>
+                <input type="button" value="GO" id='sqlhd' />
+<!--            </form>-->
+        </div>
+        
+    </div>
+</div>
+

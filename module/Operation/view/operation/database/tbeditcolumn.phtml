@@ -1,0 +1,56 @@
+<script type="text/javascript">
+$(function(){
+    $('#addcolumn').click(
+        function(){    
+            var column = $('input[type=text]').parents('tr').first().clone();
+            $('#submit').parents('tr').before(column);
+        } 
+    )     
+}
+    
+    );
+</script>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Edit Column</span>
+        <div>
+            <form name="form" action="<?php echo $this->url('database', array('action' => 'tbeditcolumnhandle', 'dbname' => $dbname, 'tbname' => $tbname)); ?>" method="post" >
+                <table id="table">
+                    <tr>
+                        <th>name</th>
+                        <th>type</th>
+                        <th>length</th>
+                        <th>default</th>
+                        <th>attr</th>
+                        <th>index</th>
+                    </tr>
+                    <?php 
+                        $row = mysql_fetch_row($result);
+                    ?>
+                    <tr>
+                        <td><input type="text" name="name[]" value="<?php echo $row[0]; ?>" /></td>
+                        <td><input type="text" name="type[]" value="<?php echo $row[1]; ?>" /></td>
+                        <td><input type="text" name="length[]" value="<?php echo $row[1]; ?>" /></td>
+                        <td><input type="text" name="default[]" value="<?php echo $row[2]; ?>" /></td>
+                        <td><input type="text" name="attr[]" value="<?php echo $row[4]; ?>" /></td>
+                        <td><input type="text" name="index[]" value="<?php echo $row[5]; ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><input type="submit" id="submit" value="Sava" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+

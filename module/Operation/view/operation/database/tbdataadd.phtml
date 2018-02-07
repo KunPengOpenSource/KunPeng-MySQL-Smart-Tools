@@ -1,0 +1,38 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span><a href="<?php echo $this->url('database',array('action' => 'tblist', 'dbname' => $dbname,'tbname'=>$tbname)) ?>"><?php echo $dbname.".".$tbname;?></a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->url('database',array('action' => 'tbdataadd', 'dbname' => $dbname,'tbname'=>$tbname)) ?>" style="align: right;">add tbdata</a></span>
+        <ul>
+            <li class="li">
+                <?php
+                     while($row=mysql_fetch_array($result)){
+                         for($i=0;$i<mysql_num_fields($result);$i++){
+                             $arr[]=$row[$i];
+                ?>
+                <p class="l9"><strong><?php echo (strlen($row[$i])>10)?substr($row[$i],0,10)."...":$row[$i];?></strong></p>
+                <?php
+                         }
+                     }
+                ?>
+            </li>
+            <form action="<?php echo $this->url('database',array('action' => 'tbdataaddhandle', 'dbname' => $dbname, 'tbname' => $tbname)); ?>" method="post">
+                <li class="li">
+                <?php foreach($arr as $key){?>
+                    <p class="l9" style="height:50px;"><textarea cols="10" rows="1" name="<?php echo $key;?>" style="overflow: scroll;overflow-x:hidden;"></textarea></p>
+                <?php }?>
+                </li>
+                <li style="float:right;"><input type="submit" name="sub" value="go"></li>
+            </form>
+        </ul>
+    </div>
+</div>
+

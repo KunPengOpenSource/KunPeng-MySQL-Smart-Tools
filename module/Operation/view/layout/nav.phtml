@@ -1,0 +1,14 @@
+<div class="nav">
+    <ul>
+        <li><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a><span></span></li>
+        <li><a href="<?php echo $this->url('database') ?>"><?php echo $this->translate('DataBase Operation') ?></a><span></span></li>
+        <li><a href="<?php echo $this->url('mysqlcfg') ?>"><?php echo $this->translate('MySQL Configuration') ?></a><span></span></li>
+        <li><a href="<?php echo $this->url('analysis') ?>"><?php echo $this->translate('Performance Analysis') ?></a><span></span></li> 
+        <li><a href="<?php echo $this->url('linuxstatus') ?>"><?php echo $this->translate('Linux Status') ?></a><span></span></li>
+    </ul>
+    <div class="intro">
+        <a target="_blank" href="<?php echo $this->url('about',array('action'=>'index')); ?>">Introduction</a>
+        |
+        <a target="_blank" href="<?php echo $this->url('about',array('action'=>'index')); ?>">About me</a>
+    </div>
+</div>

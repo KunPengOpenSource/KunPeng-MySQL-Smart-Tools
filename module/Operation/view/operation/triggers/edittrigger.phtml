@@ -1,0 +1,71 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li class="current"><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Edit Trigger</span>
+        <div class="triggercontent">
+            <?php 
+                $row=  mysql_fetch_array($result);
+                $str=$row[2];
+                $arr=  explode("FOR EACH ROW", $str);
+                $arr1=  explode("DEFINER=", $arr[0]);
+                $str1=str_replace("`", '', $arr1[1]);
+                $re=  explode(' ', $str1);
+            ?> 
+            <form method="post" action="<?php echo $this->url('triggers',array('action' => 'edittriggerhandle','name'=>$row[0],'dbname'=>$dbname)); ?>">
+    <!--                <textarea name="createview" cols="90" rows="10"></textarea>
+                <input type="submit" value="go" style="width: 50px;height: 30px;font-size: 14px;" />-->
+
+                <div class="lblf">TRIGGER NAME</div>
+                <div class="inprt">
+                    <input type="text" name="triggerName" value="<?php echo $row[0];?>">
+                </div>
+                <div class="lblf">TABLE</div>
+                <div class="inprt">
+                    <select name="table">
+                        <?php while ($r= mysql_fetch_array($tbname)) {?>
+                            <option value="<?php echo $r[0];?>" selected="<?php if($re[6]==$r[0]) echo selected;?>"><?php echo $r[0];?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <div class="lblf">TIMING</div>
+                <div class="inprt">
+                    <select name="timing">
+                        <option value="AFTER" selected="<?php if($re[4]=="AFTER") echo selected;?>">AFTER</option>
+                        <option value="BEFORE" selected="<?php if($re[4]=="BEFORE") echo selected;?>">BEFORE</option>
+<!--                        <option value="AFTER">AFTER</option>-->
+                    </select>
+                </div>
+                <div class="lblf">EVENT</div>
+                <div class="inprt">
+                    <select name="event">
+<!--                        <option value="<?//php echo $re[4];?>"><?//php echo $re[4];?></option>-->
+                        <option value="INSERT" selected="<?php if($re[4]=="INSERT") echo selected;?>" >INSERT</option>
+                        <option value="DELETE" selected="<?php if($re[4]=="DELETE") echo selected;?>">DELETE</option>
+                        <option value="UPDATE" selected="<?php if($re[4]=="UPDATE") echo selected;?>">UPDATE</option>
+                    </select>
+                </div>
+                <div class="lblf">STATEMENT</div>
+                <div class="inprtxt">
+                    <textarea name="statement"><?php echo $arr[1];?></textarea>
+                </div>
+                <div class="lblf">USER</div>
+                <div class="inprt">
+                    <input type="text" name="user" value="<?php echo $re[0];?>">
+                </div>
+                <a href="<?php echo $this->url('triggers',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                <input type="submit" value="go" id="submit">
+            </form>
+        </div>
+        
+    </div>
+</div>
+

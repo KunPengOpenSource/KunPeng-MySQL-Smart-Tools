@@ -1,0 +1,22 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Add Database</span>
+        <div class="viewcontent">
+            <form method="post" action="<?php echo $this->url('database',array('action' => 'createdatabasehandle'));?>">
+                <div class="lblf">DATABASE NAME: </div>
+                <div class="inprt"><input type="text" name="dbName" value=""></div>
+                <input id="submit" type="submit" name="submit" value="go">
+            </form>
+        </div>
+    </div>
+</div>

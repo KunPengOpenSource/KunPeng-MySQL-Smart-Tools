@@ -1,0 +1,111 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li class="current"><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Edit User</span>
+        <div class="usercontent">
+            <fieldset>
+                <legend>Change Login Information</legend>
+                <form method="post" action="<?php echo $this->url('user',array('action' => 'changelogininfo','name'=>$row[1],'host'=>$row[0])); ?>"> 
+                    <div class="ch_login_info">
+                        <div class="lblf">USER NAME</div>
+                        <div class="inprt">
+                            <input type="text" name="username" value="<?php echo $row[1];?>" id="username"  onblur="(document.getElementById('username').value=='')? alert('The user name can not empty'):''">
+                        </div>
+                        <div class="lblf">HOST</div>
+                        <div class="inprt">
+                            <input type="text" name="host" value="<?php echo $row[0];?>">
+                        </div>
+                    </div>
+                     <a href="<?php echo $this->url('user',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                    <input type="submit" value="go" id="submit">
+                </form>
+            </fieldset>
+            <br/>
+            <fieldset>
+                <legend>Change Password</legend>
+                <form method="post" action="<?php echo $this->url('user',array('action' => 'changepass','name'=>$row[1],'host'=>$row[0])); ?>"> 
+                    <div class="ch_pwd">
+                        <div class="lblf">OLD  PASSWORD</div>
+                        <div class="inprt">
+                            <input type="password" name="old_pwd" value="" id="oldpwd" >
+                        </div>
+                        <div class="lblf">NEW  PASSWORD</div>
+                        <div class="inprt">
+                            <input type="password" name="password" value="" id="password">
+                        </div>
+                        <div class="lblf">CONFIRM PASSWORD</div>
+                        <div class="inprt">
+                            <input type="password" name="confirmpass" value="" id="confirmpass" onblur="cfm_pwd()">
+                        </div>
+                    </div>
+                     <a href="<?php echo $this->url('user',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                    <input type="submit" value="go" id="submit">
+                </form>
+            </fieldset>
+            <br/>
+
+            <fieldset>
+                <legend>Change Privileges</legend>
+                <form method="post" action="<?php echo $this->url('user',array('action' => 'changepriv','name'=>$row[1],'host'=>$row[0])); ?>">              
+                    <div class="cbox">
+                        <div class="acheck" ><input type="checkbox" name="all" />check all / uncheck all</div>
+                        <div class="data">
+                            <input type="checkbox" name="checkbox[]" value="select" <?php echo ($row[3]=='Y')?'checked':'';?>>SELECT
+                            <br/><input type="checkbox" name="checkbox[]" value="insert" <?php echo ($row[4]=='Y')?'checked':'';?>>INSERT
+                            <br/><input type="checkbox" name="checkbox[]" value="update" <?php echo ($row[5]=='Y')?'checked':'';?>>UPDATE
+                            <br/><input type="checkbox" name="checkbox[]" value="delete" <?php echo ($row[6]=='Y')?'checked':'';?>>DELETE
+                            <br/><input type="checkbox" name="checkbox[]" value="file" <?php echo ($row[12]=='Y')?'checked':'';?>>FILE
+                        </div>
+                        <div class="structure" >
+                            <input type="checkbox" name="checkbox[]" value="create" <?php echo ($row[7]=='Y')?'checked':'';?>>CREATE
+                            <br/><input type="checkbox" name="checkbox[]" value="alter" <?php echo ($row[16]=='Y')?'checked':'';?>>ALTER
+                            <br/><input type="checkbox" name="checkbox[]" value="index" <?php echo ($row[15]=='Y')?'checked':'';?>>INDEX
+                            <br/><input type="checkbox" name="checkbox[]" value="drop" <?php echo ($row[8]=='Y')?'checked':'';?>>DROP
+                            <br/><input type="checkbox" name="checkbox[]" value="create temporary tables" <?php echo ($row[19]=='Y')?'checked':'';?>>CREATE TEMPORARY TABLES
+                            <br/><input type="checkbox" name="checkbox[]" value="show view" <?php echo ($row[25]=='Y')?'checked':'';?>>SHOW VIEW
+                            <br/><input type="checkbox" name="checkbox[]" value="create routine" <?php echo ($row[26]=='Y')?'checked':'';?>>CREATE ROUTINE
+                            <br/><input type="checkbox" name="checkbox[]" value="alter routine" <?php echo ($row[27]=='Y')?'checked':'';?>>ALTER ROUTINE
+                            <br/><input type="checkbox" name="checkbox[]" value="execute" <?php echo ($row[21]=='Y')?'checked':'';?>>EXECUTE
+                            <br/><input type="checkbox" name="checkbox[]" value="create view" <?php echo ($row[24]=='Y')?'checked':'';?>>CREATE VIEW
+                            <br/><input type="checkbox" name="checkbox[]" value="event" <?php echo ($row[29]=='Y')?'checked':'';?>>EVENT
+                            <br/><input type="checkbox" name="checkbox[]" value="trigger" <?php echo ($row[30]=='Y')?'checked':'';?>>TRIGGER
+                        </div>
+                        <div class="manage">
+                            <input type="checkbox" name="checkbox[]" value="grant" <?php echo ($row[13]=='Y')?'checked':'';?>>GRANT
+                            <br/><input type="checkbox" name="checkbox[]" value="super" <?php echo ($row[18]=='Y')?'checked':'';?>>SUPER
+                            <br/><input type="checkbox" name="checkbox[]" value="process" <?php echo ($row[11]=='Y')?'checked':'';?>>PROCESS
+                            <br/><input type="checkbox" name="checkbox[]" value="reload" <?php echo ($row[9]=='Y')?'checked':'';?>>RELOAD
+                            <br/><input type="checkbox" name="checkbox[]" value="shutdown" <?php echo ($row[10]=='Y')?'checked':'';?>>SHUTDOWN
+                            <br/><input type="checkbox" name="checkbox[]" value="show databases" <?php echo ($row[17]=='Y')?'checked':'';?>>SHOW DATABASES
+                            <br/><input type="checkbox" name="checkbox[]" value="lock tables" <?php echo ($row[20]=='Y')?'checked':'';?>>LOCK TABLES
+                            <br/><input type="checkbox" name="checkbox[]" value="references" <?php echo ($row[14]=='Y')?'checked':'';?>>REFERENCES
+                            <br/><input type="checkbox" name="checkbox[]" value="replication client" <?php echo ($row[23]=='Y')?'checked':'';?>>REPLICATION CLIENT
+                            <br/><input type="checkbox" name="checkbox[]" value="replication slave" <?php echo ($row[22]=='Y')?'checked':'';?>>REPLICATION SLAVE
+                            <br/><input type="checkbox" name="checkbox[]" value="create user" <?php echo ($row[28]=='Y')?'checked':'';?>>CREATE USER
+                        </div>
+                    </div>
+                    <a href="<?php echo $this->url('user',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                    <input type="submit" value="go" id="submit">
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        function cfm_pwd(){
+            var pass=document.getElementById('password').value;
+            var cpass=document.getElementById('confirmpass').value;
+            if(pass!==cpass){
+                alert('The two passwords do not match');
+            }
+        }
+</script>

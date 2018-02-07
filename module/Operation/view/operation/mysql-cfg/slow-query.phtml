@@ -1,0 +1,118 @@
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+            <?php  if(!$warning){ ?>
+            <div class="scroll">
+                <ul  class="sty">
+                    <li class="li">
+                        <p class="l9">Total Time</p>
+                        <p class="l8">Avg Time</p>
+                        <p class="l8">Sent Rows</p>
+                        <p class="l6">Examined Rows</p>
+                        <p class="l8">Count</p>
+                        <p class="l8">Lock</p>
+                        <p class="l7">user@host</p>
+                        <p class="l1">sample</p>
+                    </li>
+                    <?php
+                    for($i=$offset;$i<$end;$i++){
+                        $var= explode("##",$output[$i]);
+                        for($j=0;$j<count($var);$j++){
+                            if($j==0){
+                                $var[$j]=  substr($var[$j],6);
+                            }
+                            if($j!=0 && $j!=count($var)-1){
+                                $var[$j]=substr($var[$j],5);
+                                $var[$j]=explode(' ',$var[$j]);
+                                $var[$j][1]=  str_replace('(','',$var[$j][1]);
+                                $var[$j][1]=  str_replace(')','',$var[$j][1]);
+                            }
+                            if($j==3){
+                                $var[3][1]=  str_replace(",","",$var[3][1]);
+                            }
+                        }
+                    ?>
+                        <li class="li" >
+                            <p class="l9" title="<?php echo $var[1][1];?>"><?php echo $var[1][1];?></p>
+                            <p class="l8" title="<?php echo $var[1][0];?>"><?php echo $var[1][0];?></p>
+                            <p class="l8" title="<?php echo $var[3][0];?>"><?php echo $var[3][0];?></p>
+                            <p class="l6" title="<?php echo $var[3][1];?>"><?php echo $var[3][1];?></p>
+                            <p class="l8" title="<?php echo $var[0];?>"><?php echo $var[0];?></p>
+                            <p class="l8" title="<?php echo $var[2][0];?>"><?php echo $var[2][0];?></p>
+                            <p class="l7" title="<?php echo htmlentities($var[3][2]);?>"><?php echo strlen($var[3][2])>25?substr($var[3][2],0,25)."...":$var[3][2];?></p>
+                            <p class="l1" title="<?php echo $var[4];?>"><a id="<?php echo $i."/".$var[4];?>" class="unfold">+</a> <?php echo strlen($var[4])>40?substr($var[4],0,40)."...":$var[4]; ?></p>
+                        </li>
+                        <div class="isshow" id="x<?php echo $i;?>"></div>
+                   <?php } ?>
+               </ul>
+            </div>
+            <?php }else{
+                echo $warning;
+            } ?>
+            <?php if(!($pages<=0 || $pages==1 )){ ?>
+                <div id="pg">
+                    <a id="first" href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery' ));?>">first</a>
+                    <a id="pre" href="#">&laquo; Prev </a>
+                    <?php     for($page=$init;$page<=$max_p;$page++){  ?>
+                    <a class="plist" title="<?php echo $page;?>" id="<?php echo $max_p?$max_p:1;?>" href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery','id'=>$page ));?>"><?php echo $page;?></a>
+                    <?php }?>
+                   <a id="next" href="#"> Next &raquo;</a>
+                   <a id="last" href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery','id'=>$pages ));?>">last</a>
+                </div>
+            <?php } ?>
+            <script type="text/javascript">
+                    $(function(){
+                        var pages=$(".plist").attr("id");
+                        var url=window.location.pathname;
+                        var arr=url.split("/");
+                        if(isNaN(arr[arr.length-1])){
+                            page=1;
+                            $("#pre").addClass("disabled");
+                            $("#first").addClass("disabled");
+                            $("a[title='1']").addClass("current");
+                        }else{
+                            page=arr[arr.length-1];
+                            if(page==1){
+                                $("#pre").addClass("disabled");
+                                $("#first").addClass("disabled");
+                            }
+                            if(page==pages){
+                                $("#next").addClass("disabled");
+                                $("#last").addClass("disabled");
+                            }
+                            $("a[title='"+page+"']").addClass("current");
+                        }
+                        $("#pre").click(function(){
+                            if(page==1){
+                                $("#pre").addClass("disabled");
+                            }else{
+                                page=page-1;
+                                prefix=url.substr(0,44);
+                                location.href =prefix+"/"+page;
+                            }
+                        });
+                        $("#next").click(function(){
+                            if(page==pages){
+                                $(this).addClass("disabled");
+                            }else{
+                                page=page*1 + 1*1;
+                                prefix=url.substr(0,44);
+                                location.href =prefix+"/"+page;
+                            }
+                        });
+                });
+            </script>
+    </div>
+</div>

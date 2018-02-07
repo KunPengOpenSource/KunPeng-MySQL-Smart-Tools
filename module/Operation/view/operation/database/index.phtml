@@ -1,0 +1,36 @@
+<?php echo "<script type='text/javascript'>dbdrop='".$this->url('database',array('action' => 'dbdrop'))."'</script>"?>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Database<a href="<?php echo $this->url('database',array('action' => 'createdatabase'))?>">Add Database</a></span>
+        <ul>
+            <li class="li">
+                <p class="l1">DB</p>
+                <p class="l2">Operate</p>
+            </li>
+            <?php
+                $i=1;
+                while($row=mysql_fetch_array($result)){
+            ?>
+                    <li class="li"  id="del<?php echo $i;?>">
+                        <p class="l1" title="<?php echo $row[0];?>"><a href="<?php echo $this->url('database',array('action' => 'tblist','dbname'=>$row[0]))?>"><?php echo strlen($row[0])>30?substr($row[0],0,30)."...":$row[0];?></a></p>
+                        <p class="l2" title="drop"><a  class="drop" href="#" title="<?php echo $row[0];?>" id="<?php echo $i;?>"> drop</a></p> 
+                        <p class="l2" title="export"><a href="<?php echo $this->url('database',array('action' => 'dbexport','dbname'=>$row[0]))?>">export</a></p> 
+                        <p class="l2" title="import"><a href="<?php echo $this->url('database',array('action' => 'dbimport','dbname'=>$row[0]))?>">import</a></p>
+                    </li>
+            <?php
+               $i++;}
+            ?> 
+        </ul>
+    </div>
+</div>
+<div class="dropdialog"></div>

@@ -1,0 +1,48 @@
+<?php echo "<script type='text/javascript'>deletetrigger='" . $this->url('triggers',array('action' => 'deletetrigger')) . "'</script>" ?>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li class="current"><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>List Trigger &nbsp;&nbsp;  <a href="<?php echo $this->url('triggers',array('action' => 'createtrigger'))?>">Create Ttrigger</a></span>
+        <ul>
+            <li class="li">
+                <p class="l9">Trigger</p>
+                <p class="l9">Table</p>
+                <p class="l8">Timing</p>
+                <p class="l8">Event</p>
+                <p class="l9">User</p>
+                <p class="l6">DB</p>
+                <p class="l3">Operate</p>
+            </li>
+            <?php
+                $i=1;
+                while($row=  mysql_fetch_array($result)){
+//                    print_r($row);
+            ?>
+            <li class="li" id="del<?php echo $i;?>">
+                        <p class="l9"><?php echo strlen($row[2])>15?substr($row[2],0,15)."...":$row[2];?></p>
+                        <p class="l9"><?php echo strlen($row[6])>15?substr($row[6],0,15)."...":$row[6];?></p>
+                        <p class="l8"><?php echo $row[11];?></p>
+                        <p class="l8"><?php echo $row[3];?></p>
+                        <p class="l9"><?php echo strlen($row[18])>15?substr($row[18],0,15)."...":$row[18];?></p>
+                        <p class="l6"><?php echo strlen($row[1])>12?substr($row[1],0,12)."...":"$row[1]";?></p>
+                        <p class="l3">
+                            <a href="<?php echo $this->url('triggers',array('action' => 'edittrigger','name'=>$row[2],'dbname'=>$row[1]))?>">edit</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+                            <a class="delete" id="<?php echo $i;?>" href="#" title="<?php echo $row[2]."/".$row[1]."/deletetrigger";?>"> delete</a>
+                        </p>
+                    </li>
+            <?php
+                }
+            ?> 
+        </ul>
+    </div>
+</div>
+<div class="dropdialog"></div>

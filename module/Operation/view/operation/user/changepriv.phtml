@@ -1,0 +1,19 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li class="current"><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Message</span>
+        <ul>
+            <div style="width:729px;height:auto;border-bottom: 1px solid #CCCCCC;line-height: 25px;"><?php echo $mess;?></div>
+            <li style="float:right;"><input type="button" name="back" value="back" onclick="javascript:history.go(-1);"></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<?php echo "<script type='text/javascript'>kill='".$this->url('mysqlcfg',array('action'=>'killProcesslist'))."'</script>"?>
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+            <div class="scroll">
+                <ul class="sty">
+                    <li class="li">
+                        <p class="l2">Id</p>
+                        <p class="l9">User</p>
+                        <p class="l9">Host</p>
+                        <p class="l9">DB</p>
+                        <p class="l9">Command</p>
+                        <p class="l2">Time</p>
+                        <!--<p class="l2">State</p>-->
+                        <p class="l4">Info</p>
+                        <p class="l2">Operate</p>
+                    </li>
+                    <?php $i=0; while($row = mysql_fetch_row($result)){ $j=  mysql_affected_rows();?> 
+                    <li class="li" id="del<?php echo $i;?>">
+                        <p class="l2"><?php echo $row[0];?></p>
+                        <p class="l9" title="<?php echo $row[1];?>"><?php echo $row[1]?(strlen($row[1])>12?substr($row[1],0,12)."...":$row[1]):"&nbsp;"; ?></p>
+                        <p class="l9" title="<?php echo $row[2];?>"><?php echo $row[2]?(strlen($row[2])>12?substr($row[2],0,12)."...":$row[2]):"&nbsp;";?></p>
+                        <p class="l9" title="<?php echo $row[3];?>"><?php echo $row[3]? (strlen($row[3])>12?substr($row[3],0,12)."...":$row[3]):"NULL";?></p> 
+                        <p class="l9" title="<?php echo $row[4];?>"><?php echo $row[4]?(strlen($row[4])>10?substr($row[4],0,10):$row[4]):"NULL";?></p> 
+                        <p class="l2" title="<?php echo $row[5]?$row[5]:0;?>"><?php echo $row[5]?$row[5]:0;?></p> 
+                        <!--<p class="l5"><?php echo $row[6]?$row[6]:"";?></p>-->
+                        <p class="l4" title="<?php echo $row[7]?$row[7]:"NULL";?>"><?php echo $row[7]?(strlen($row[7])>20?substr($row[7], 0, 20)."...":$row[7]):"NULL";?></p>
+                        <?php if($i>=0 && $i<= $j-1){?>
+                        <p class="l2"><a class="kill" href="#" id="<?php echo $row[0]." ".$i;?>" title="<?php echo $row[6];?>" >kill</a></p>
+                        <?php }?>
+                    </li>
+                    <?php $i++; } ?>
+              </ul>
+         </div>
+   </div>
+</div>
+<div class="dropdialog"></div>

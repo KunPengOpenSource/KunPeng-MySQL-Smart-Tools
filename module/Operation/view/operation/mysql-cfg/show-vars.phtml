@@ -1,0 +1,57 @@
+<?php
+echo "<script type='text/javascript'>funct='".$this->url('mysqlcfg',array('action' => 'funct'))."'</script>";
+?>
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+            <ul>
+                <li class="li">
+                    <p  class="l1">Variables</p><p class="l1">Session value / Global value</p><p class="l2">Option</p>
+                </li>
+
+                <?php $i=1; while ($row = mysql_fetch_row($rs)) {  ?>
+
+                <li class="li">
+                    <p class="l1" title="<?php echo $row[0]; ?>"><?php echo strlen($row[0])<40 ? $row[0] : mb_substr($row[0], 0, 40, 'UTF-8').'...'; ?></p>
+                    <p class="l1" title="<?php echo $row[1]; ?>" id="text<?php echo $i; ?>"><?php echo strlen($row[1])<45 ? ($row[1]==''? '-' : $row[1]) : mb_substr($row[1], 0, 45, 'UTF-8').'...'; ?></p>
+                    <a class="ls" href="###" id="ls<?php echo $i; ?>"> 
+                        <img src="<?php echo $this->basePath('img/edit.png') ?>" alt="edit" title="edit" />
+                    </a>
+                </li>
+                <li class="lf" id="tb<?php echo $i; ?>">
+                    <table border="0" cellspacing="5">
+                        <tr>
+                            <td bgcolor="#EEEEEE">
+                                <p>Variables:</p>
+                            </td>
+                            <td width="150">
+                                <input type="text" class="in" size="40" id="vari<?php echo $i ?>" value="<?php echo $row[0] ?>"/>
+                            </td>
+                            <td rowspan="2" width="340">
+                                <div class="wb1"><a id="oka<?php echo $i ?>" href="###" class="ok">temporary</a></div>
+                                <div class="wb"><a id="okb<?php echo $i ?>" href="###" class="ok">default</a></div>
+                                <div class="wb"><a id="okc<?php echo $i ?>" href="###" class="ok">permanent</a></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#EEEEEE"><p>Value:</p></td>
+                            <td><input type="text" class="in" size="40" id="var<?php echo $i ?>" value="<?php echo $row[1] ?>"/></td>
+                        </tr>
+                    </table>
+                </li>
+                <?php  $i++; } ?>
+            </ul>
+        </div>
+    </div>

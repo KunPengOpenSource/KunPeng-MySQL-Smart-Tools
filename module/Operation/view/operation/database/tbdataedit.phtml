@@ -1,0 +1,41 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Database<a href="<?php echo $this->url('database',array('action' => '#', 'dbname' => $dbname)) ?>" style="align: right;"></a></span>
+        <div style="overflow: auto;height:250px;">
+        <ul>
+              <li class="li">
+                <?php
+                     while($r=mysql_fetch_array($re)){
+                         for($i=0;$i<mysql_num_fields($re);$i++){
+                ?>
+                <p class="l9"><strong><?php echo (strlen($r[$i])>10)?substr($r[$i],0,10)."...":$r[$i];?></strong></p>
+                <?php
+                         }
+                     }
+                ?>
+             </li>
+             <form action="<?php echo $this->url('database',array('action' => 'tbdataedithandle', 'dbname' => $dbname, 'tbname' => $tbname,'column'=>$prikey,'prival'=>$prival)); ?>" method="post">
+             <?php while($row = mysql_fetch_assoc($result)){?>
+                <li class="li">
+                    <?php foreach ($row as $key => $value){?>
+                    <p class="l9" title="<?php echo $value; ?>"><textarea cols="10" rows="1" name="<?php echo $key;?>" style="overflow: scroll;overflow-x:hidden;"><?php echo $value;//$row[$j];//(strlen($row[$j])>10)?substr($row[$j],0,10)."...":$row[$j];?></textarea></p>
+                    <?php }?>
+                </li>
+             <?php } ?>
+                <li class="float"><input type="button" name="back" value="back" onclick="javascript:history.go(-1);"></li>
+                <li class="float"><input type="submit" name="sub" value="go"></li>
+             </form>
+        </ul>
+        </div>
+    </div>
+</div>

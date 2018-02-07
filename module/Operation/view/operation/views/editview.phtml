@@ -1,0 +1,69 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li class="current"><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Edit View</span>
+        <div class="viewcontent">
+            <form method="post" action="<?php echo $this->url('views',array('action' => 'createviewhandle')); ?>">
+                <div class="lblf">OR REPLACE </div>
+                <div class="inprt">
+                    <input type="checkbox" name="orreplace" value="OR REPLACE" checked="">
+                </div>
+                <div class="lblf">ALGORITHM</div>
+                <div class="inprt">
+                    <select name="algorithm" value="<?php echo $row[4]; ?>">
+                        <option value="UNDEFINED">UNDEFINED</option>
+                        <option value="MERGE">MERGE</option>
+                        <option value="TEMPTABLE">TEMPTABLE</option>
+                    </select>
+                </div>
+                <div class="lblf">USER</div>
+                <div class="inprt">
+                    <input type="text" name="user" value="<?php echo $row[6]; ?>" />
+                </div>
+                <div class="lblf">SQL SECURITY</div>
+                <div class="inprt">
+                    <select name="sqlsec">
+                        <option value="<?php echo $row[7]; ?>"><?php echo $row[7]; ?></option>
+                        <option value="DEFINER">DEFINER</option>
+                        <option value="INVOKER">INVOKER</option>
+                    </select>
+                </div>
+                <div class="lblf">VIEW NAME</div>
+                <div class="inprt">
+                    <input type="text" name="viewname" value="<?php echo $row[2]; ?>" />
+                </div>
+                <div class="lblf">DATABASE NAME</div>
+                <div class="inprt">
+                    <input type="text" name="dbname" value="<?php echo $row[1]; ?>" />
+                </div>
+                <div class="lblf">COLUMN NAME</div>
+                <div class="inprt">
+                    <input type="text" name="columnname" />
+                </div>
+                <div class="lblf">AS</div>
+                <div class="inprtxt">
+                    <textarea name="select_statement"><?php echo $row[3]; ?></textarea>
+                </div>
+                <div class="lblf">WITH CHECK OPTION</div>
+                <div class="inprt">
+                    <select name="check">
+                        <option value="<?php echo $row[4]; ?>"><?php echo $row[4]; ?></option>
+                        <option value="CASCADED">CASCADED</option>
+                        <option value="LOCAL">LOCAL</option>
+                    </select>
+                </div>
+                <input type="submit" id="submit" value="go" />
+            </form>
+        </div>
+    </div>
+</div>
+

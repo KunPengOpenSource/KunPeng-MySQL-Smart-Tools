@@ -1,0 +1,24 @@
+
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li class="current"><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <ul>
+            <li class="li"><p class="l7">Total</p><p class="l7">USED</p><p class="l7">FREE</p></li>
+            <li class="li"><p class="l7"><?php echo $res[1];?>MB</p><p class="l7"><?php echo $res[2];?> MB</p><p class="l7"><?php echo $res[3];?>MB</p>
+            <li class="li"><p class="l7">100%</p><p class="l7"><?php echo $a;?> %</p><p class="l7"><?php echo 100-$a;?> %</p></li>
+        </ul>
+    </div>
+</div>

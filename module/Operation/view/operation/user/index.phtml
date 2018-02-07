@@ -1,0 +1,38 @@
+<?php echo "<script type='text/javascript'>deleteUser='" .$this->url('user',array('action' => 'deleteuser')) . "'</script>" ?>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li class="current"><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right" style="overflow-x: auto;overflow-y:hidden;">
+        <span>List User &nbsp;&nbsp;<a href="<?php echo $this->url('user',array('action' => 'createuser'))?>">Add User</a></span>
+        <ul>
+            <li class="li">
+                <p class="l4">User</p>
+                <p class="l4">Host</p>
+                <p class="l8" style="text-align: center;">Password</p>
+                <p class="l8" style="text-align: center;">Grant</p>
+                <p class="l3">Operate</p>
+            </li>
+            <?php $i=1; while($row = mysql_fetch_assoc($result)){ ?>
+            <li class="li" id="del<?php echo $i;?>">
+                        <p class="l4"><?php echo strlen($row['User'])>17?substr($row['User'],0,17)."...":$row['User'];?></p>
+                        <p class="l4"><?php echo strlen($row['Host'])>17?substr($row['Host'],0,17)."...":$row['Host'];?></p>
+                        <p class="l8" style="text-align: center;"><?php echo ($row['Password']=="")?"NO":"YES";?></p>
+                        <p class="l8" style="text-align: center;"><?php echo $row['Grant_priv']=="Y"?"YES":"NO";?></p>
+                        <p class="l3">
+                                <a href="<?php echo $this->url('user',array('action' => 'edituser','name'=>$row["User"],'host'=>$row['Host']))?>">edit</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <a class="delete" id="<?php echo $i;?>" href="#" title="<?php echo $row['User']."/".$row['Host']."/deleteUser";?>"> delete</a>
+                        </p>
+                    </li>
+            <?php $i++;}?> 
+        </ul>
+    </div>
+</div>
+<div class="dropdialog"></div>

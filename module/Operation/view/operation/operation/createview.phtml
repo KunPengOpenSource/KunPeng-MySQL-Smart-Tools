@@ -1,0 +1,69 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="#">DataBase</a></li>
+            <li><a href="<?php echo $this->url('operation',array('action' => 'createview'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('operation',array('action' => 'createtrigger'))?>">Trigger</a></li>
+            <li><a href="#">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Create View</span>
+        
+        <div style="width: 500px;">
+            <form method="post" action="<?php echo $this->url('operation',array('action' => 'createviewhandle')); ?>">
+<!--                <textarea name="createview" cols="90" rows="10"></textarea>
+                <input type="submit" value="go" style="width: 50px;height: 30px;font-size: 14px;" />-->
+                
+                <div style="width: 150px; text-align: left; float: left;">OR REPLACE </div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <input type="checkbox" name="orreplace" value="OR REPLACE">
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">ALGORITHM</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <select name="algorithm">
+                        <option value="UNDEFINED">UNDEFINED</option>
+                        <option value="MERGE">MERGE</option>
+                        <option value="TEMPTABLE">TEMPTABLE</option>
+                    </select>
+                </div>
+                    <div style="width: 150px; text-align: left; float: left;">USER</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <input type="text" name="user" />
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">SQL SECURITY</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <select name="sqlsec">
+                        <option value=""></option>
+                        <option value="DEFINER">DEFINER</option>
+                        <option value="INVOKER">INVOKER</option>
+                    </select>
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">VIEW NAME</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <input type="text" name="viewname" />
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">COLUMN NAME</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <input type="text" name="columnname" />
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">AS</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <textarea name="select_statement"></textarea>
+                </div>
+                <div style="width: 150px; text-align: left; float: left;">WITH CHECK OPTION</div>
+                <div style="width: 350px; text-align: center; float: left;">
+                    <select name="withcheck">
+                        <option value=""></option>
+                        <option value="CASCADED">CASCADED</option>
+                        <option value="LOCAL">LOCAL</option>
+                    </select>
+                </div>
+                <input type="submit" value="go" style="width: 50px;height: 30px;font-size: 14px;" />
+            </form>
+        </div>
+    </div>
+</div>
+

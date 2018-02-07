@@ -1,0 +1,158 @@
+<div class="content">
+    <div class="left">
+        <span>Performance</span>
+        <ul>
+            <?php foreach ($specifications as $k => $specification) { ?>
+            <li><a id="<?php echo 'list'.$k;?>" href="<?php echo $this->url('analysis',array('action' => 'specification', 'specification' => $k ))?>"><?php echo $specification ?></a></li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <ul>
+            <?php
+                $link = mysql_connect('localhost', 'root', 'MySQLSmartTools');
+                mysql_select_db('MySQL-Smart-Tools-DB');
+
+                $sql = 'select create_time from (select * from mysql_connections order by id desc limit 25) as newtable order by id asc';
+                $result = mysql_query($sql);
+                $time=array();
+                $i = 0;
+                while ($row = mysql_fetch_row($result)) {
+                    if($i == 5||$i==0){
+                        $time[] = $row[0];
+                        $i = 0;
+                    }
+                    $i++;
+                }
+            ?>
+            <li class="li">
+                <p class="l6">TIME</p>
+                <?php for($j = 0; $j < sizeof($time); $j++) {
+                    echo '<p class="l6">' . date('H:i', strtotime($time[$j])) . '</p>';
+                }?>
+            </li>
+            <?php
+                unset($result);
+                for($tid = 1; $tid < 6; $tid++){
+                    switch ($tid) {
+                        case 1:
+                            $name = 'Connections';
+                            $table = 'mysql_connections';
+                            $unit = 'pcs';
+                            $options = array('Threads_connections','Threads_running');
+                                break;
+                        case 2:
+                            $name = 'Threads';
+                            $table = 'mysql_threads';
+                            $unit = 'pcs';
+                            $options = array('Threads_running','Threads_connected');
+                                break;
+                        case 3:
+                            $name = 'Bytes';
+                            $table = 'mysql_bytes_history';
+                            $unit = 'KB';
+                            $options = array('Bytes_sent','Bytes_received');
+                                break;
+                        case 4:
+                            $name = 'QPS&TPS';
+                            $table = 'mysql_qps_tps_history';
+                            $unit = 'pcs';
+                            $options = array('QPS','TPS');
+                                break;
+                        case 5:
+                            $name = 'Key Buffer';
+                            $table = 'mysql_key_buffer_history';
+                            $unit = '%';
+                            $options = array('key_buffer_read_hits','key_buffer_write_hits');
+                                break;
+                    }
+                    $num = 25;
+                    $space = 5;
+                    $sql = 'select ' . $options[0] . ',' . $options[1] .',create_time from (select * from '.$table.' order by id desc limit '.$num.') as newtable order by id asc';
+                    $result = mysql_query($sql);
+
+                    $x = 0;
+                    $y = 0;
+                    $time = array();
+                    $xa = array();
+                    $ya = array();
+                    $i = 0;
+                    while ($row = mysql_fetch_row($result)) {
+                        if($i < $space){
+                            $x += $row[0];
+                            $y += $row[1];
+                            $i++;
+                        }
+                        if($i == $space){
+                            $xa[] = round($x/$space,2);
+                            $ya[] = round($y/$space,2);
+                            $i=0;
+                            $time[] = $row[2];
+                            $x = 0;
+                            $y = 0;
+                        }
+                    }
+            ?>
+            <li class="li">
+                <p class="l6"><?php echo $name.'('.$unit.')'; ?></p>
+                <?php for($j = 0; $j < sizeof($xa); $j++) {
+                    echo '<p class="l6">' . $xa[$j] . "/"  . $ya[$j]  . '</p>';
+                }?>
+            </li>
+            <?php
+            } 
+            for($tid = 1; $tid < 4; $tid++){
+                switch ($tid) {
+                    case 1:
+                        $name = 'Innodb Buffer';
+                        $table = 'mysql_innodb_buffer_history';
+                        $options = array('innodb_buffer_hits');
+                            break;
+                    case 2:
+                        $name = 'Query Cache';
+                        $table = 'mysql_query_cache_history';
+                        $options = array('Query_cache_hits');
+                            break;
+                    case 3:
+                        $name = 'Thread Cache';
+                        $table = 'mysql_thread_cache_history';
+                        $options = array('thread_cache_hits');
+                            break;
+                }
+                $num = 25;
+                $space = 5;
+                $sql = 'select ' . $options[0] . ',create_time from (select * from '.$table.' order by id desc limit '.$num.') as newtable order by id asc';
+                $result = mysql_query($sql);
+                $x = 0;
+                $rate = array();
+                $i = 0;
+                while ($row = mysql_fetch_row($result)) {
+                    if($i < $space){
+                        $x += $row[0];
+                        $i++;
+                    }
+                    if($i == $space){
+                        $rate[] = round($x/$space, 2);
+                        $x = 0;
+                        $i = 0;
+                    }
+                }?>
+            <li class="li">
+                <p class="l6"><?php echo $name; ?></p>
+                <?php foreach ($rate as $v) {
+                    echo '<p class="l6">' . $v . '%</p>';
+                }?>
+            </li>
+          <?php  } ?>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+

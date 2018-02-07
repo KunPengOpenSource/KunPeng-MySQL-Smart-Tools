@@ -1,0 +1,47 @@
+<?php echo "<script type='text/javascript'>tbdrop='" . $this->url('database',array('action' => 'tbdrop')) . "'; empty='" . $this->url('database',array('action' => 'tbdataempty')) . "'</script>" ?>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index')) ?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index')) ?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index')) ?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index')) ?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation',array('action' => 'index')); ?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span><a href="<?php echo $this->url('database',array('action' => 'index')) ?>">Database</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->url('database',array('action' => 'createtable','dbname' => $dbname)) ?>" style="align: right;">Create Table</a></span>
+        <div class="scroll">
+            <ul class="sty">
+                <li class="li">
+                    <p class="l11">tablename</p>
+                    <p class="l8">browse</p>
+                    <p class="l8">structure</p>
+                    <p class="l2">drop</p>
+                    <p class="l8">export</p>
+                    <p class="l8">import</p>
+                    <p class="l8">empty</p>
+                </li>
+                <?php
+                $i = 1;
+                while($row = mysql_fetch_row($result)){
+                    ?>
+                <li class="li" id="del<?php echo $i;?>">
+                        <p class="l11" title="<?php echo $row[0]; ?>"><?php echo (strlen($row[0]) > 35 ? substr($row[0],0,35) . "..." : $row[0]); ?></p>
+                        <p class="l8" title="browse"><a href="<?php echo $this->url('database',array('action' => 'tbdatalist','dbname' => $dbname,'tbname' => $row[0])); ?>">browse</a></p>
+                        <p class="l8" title="structure"><a href="<?php echo $this->url('database',array('action' => 'tbstructure','dbname' => $dbname,'tbname' => $row[0])); ?>">structure</a></p>
+                        <p class="l2 " title="drop"><a class="drop" href="#"  title="<?php echo $dbname."/".$row[0]."/"."tbdrop"; ?>"  id="<?php echo $i; ?>">drop</a></p>
+                        <p class="l8" title="export"><a href="<?php echo $this->url('database',array('action' => 'tbexport','dbname' => $dbname,'tbname' => $row[0])); ?>">export</a></p>
+                        <p class="l8" title="import"><a href="<?php echo $this->url('database',array('action' => 'tbimport','dbname' => $dbname,'tbname' => $row[0])); ?>">import</a></p>
+                        <p class="l8" title="empty"><a href="#" class="empty" title="<?php echo $dbname."/".$row[0] ?>" id="<?php echo $i; ?>">empty</a></p>
+                    </li>
+                    <?php
+                    $i++;
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="dropdialog"></div>

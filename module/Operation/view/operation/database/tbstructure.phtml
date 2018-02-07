@@ -1,0 +1,62 @@
+<script type="text/javascript">
+$(function(){
+    $('#addcolumn').click(
+        function(){    
+            var column = $('input[type=text]').parents('tr').first().clone();
+            $('#submit').parents('tr').before(column);
+        } 
+    );     
+});
+</script>
+<?php echo "<script type='text/javascript'>tbdropcolumn='" . $this->url('database', array('action' => 'tbdropcolumn'))."'</script>"?>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Table Structure</span>
+        <div class="scroll">
+            <ul class="sty">
+                <li class="li">
+                    <p class="l7">Field</p>
+                    <p class="l10">Type</p>
+                    <p class="l2">Null</p>
+                    <p class="l2">Key</p>
+                    <p class="l10">Default</p>
+                    <p class="l6">Extra</p>
+                    <p class="l8">Change</p>
+                    <p class="l2">Drop</p>
+                    <p class="l8">Pri Key</p>
+                    <p class="l8">Unique</p>
+                    <p class="l2">Index</p>
+                </li>
+                <?php $i=1; while ($row = mysql_fetch_array($result)) {?>
+                <li class="li" id="del<?php echo $i;?>">
+                        <p class="l7" title="<?php echo $row[0]; ?>"><?php echo strlen($row[0])>20?substr($row[0], 0, 20)."...":$row[0]; ?></p>
+                        <p class="l10" title="<?php echo $row[1]; ?>"><?php echo strlen($row[1])>20?substr($row[1], 0, 20)."...":$row[1]; ?></p>
+                        <p class="l2" title="<?php echo $row[2]; ?>"><?php echo $row[2]; ?></p>
+                        <p class="l2" title="<?php echo $row[3]; ?>"><?php echo $row[3]; ?></p>
+                        <p class="l10" title="<?php echo $row[4]; ?>"><?php echo strlen($row[4])>20?substr($row[4], 0, 20)."...":$row[4]; ?></p>
+                        <p class="l6" title="<?php echo $row[5]; ?>"><?php echo strlen($row[5])>10?substr($row[5], 0, 10)."...":$row[5]; ?></p>
+                        <p class="l8"><a href="<?php echo $this->url('database', array('action' => 'tbeditcolumn','dbname' => $dbname, 'tbname' => $tbname, 'column' => $row[0])); ?>">Change</a></p>
+                        <p class="l2"><a class="drop" href="#" id="<?php echo $i;?>" title="<?php echo $dbname."/".$tbname."/tbdropcolumn/".$row[0];?>">Drop</a></p>
+                        <p class="l8"><a href="<?php echo $this->url('database', array('action' => 'tbprikey','dbname' => $dbname, 'tbname' => $tbname, 'column' => $row[0])); ?>">Pri Key</a></p>
+                        <p class="l8"><a href="<?php echo $this->url('database', array('action' => 'tbunique','dbname' => $dbname, 'tbname' => $tbname, 'column' => $row[0])); ?>">Unique</a></p>
+                        <p class="l2"><a href="<?php echo $this->url('database', array('action' => 'tbindex','dbname' => $dbname, 'tbname' => $tbname, 'column' => $row[0])); ?>">Index</a></p>
+                    </li>
+                <?php $i++;} ?>
+                <form action="<?php echo $this->url('database', array('action' => 'tbaddcolumn','dbname' => $dbname, 'tbname' => $tbname)); ?>" method="post" />
+                    Add<input type="text" name="column" value="1">Column(s)<input type="submit" value="Go" />
+                </form>
+             </ul>
+        </div>
+    </div>
+</div>
+<div class="dropdialog"></div>

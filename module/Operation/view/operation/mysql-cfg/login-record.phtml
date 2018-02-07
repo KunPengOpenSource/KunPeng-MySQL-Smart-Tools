@@ -1,0 +1,48 @@
+
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+            <?php
+               $array = array();   
+               exec("cat /var/www/html/MSTV2.0/public/login_record.log",$array);//使用 2>&1, 命令就会输出shell执行时的错误�?output变量, 输出该变量即可分析。例：exec("/var/www".$path." 2>&1",$output)
+               //print_r($array);
+               $arr= array_reverse($array);
+               //print_r($arr);
+               ?>
+            <ul id="ll">
+                <li class="li" ><p class="l6">Y-m-d</p><p class="l6">h：m：s</p><p class="l6">ID</p><p class="l7">User</p></li>
+                <?php
+                     foreach ($arr as $row){
+                        $newarr[]=preg_split("/\s+/", $row);
+                     }
+                     //  print_r($newarr);
+                     if(count($newarr)<60){
+                         $iLoop=count($newarr);
+                     }else{
+                         $iLoop=60;
+                     }
+                     for($i=0;$i<$iLoop;$i++){
+                        $year= $newarr[$i][0]=="" ? "-" :substr($newarr[$i][0],0,2).'-'.substr($newarr[$i][0],2,2).'-'.substr($newarr[$i][0],4,2);
+                ?>
+                <li class="li" >
+                    <p class="l6" title="<?php echo $year;?>"><?php echo $year;?></p>
+                    <p class="l6" title="<?php echo htmlentities($newarr[$i][1]);?>"><?php echo $newarr[$i][1]==""?"-":$newarr[$i][1];?></p>
+                    <p class="l6" title="<?php echo htmlentities($newarr[$i][2]);?>"><?php echo $newarr[$i][2];?></p>
+                    <p class="l7" title="<?php echo htmlentities($newarr[$i][4]);?>"><?php echo strlen($newarr[$i][4])>30?substr($newarr[$i][4],0,30)."...":$newarr[$i][4];?></p>
+                </li>
+                <?php }?>
+           </ul>
+    </div>
+</div>

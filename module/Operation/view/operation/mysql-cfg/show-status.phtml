@@ -1,0 +1,39 @@
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+                <ul id="ll">
+                    <li class="li" ><p class="l1">Status</p><p class="l1">Session value / Global value</p></li>
+                    <?php 
+                        $i=0; 
+                        while ($row=  mysql_fetch_row($result)){
+                            $i++;
+                            $str1=$row[0];
+                            $str2=$row[1];
+
+                            if(strlen($str2)<1){
+                                $str2="-";
+                                $row[1]='-';
+                            }
+                            if(strlen($str2)>40){
+                                $str2=  substr($str2, 1, 40)."...";
+                            }
+                            if(strlen($str1)>40){
+                                $str1=  substr($str1, 1, 40)."...";
+                            }?>
+                       <li class="li"><p class="l1" title="<?php echo $row[0];?>"><?php echo $str1;?></p><p  id="text<?php echo $i;?>" class="l1" title="<?php echo $row[1];?>"><?php echo $str2;?></p></li>      
+                   <?php }?>
+                </ul>
+    </div>
+</div>

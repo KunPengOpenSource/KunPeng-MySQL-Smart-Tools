@@ -1,0 +1,25 @@
+
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li class="current"><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <ul>
+            <li class="li"><p class="l1">SOFTWARE</p><p class="l1">INSTALLATION</p></li>
+            <?php for($i=0;$i<8;$i++){?>
+                <li class="li"><p class="l1"><?php echo $data[$i][0];?></p><p class="l1"><?php echo $data[$i][1];?></p></li>
+            <?php }?>
+        </ul>
+    </div>
+</div>

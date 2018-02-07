@@ -1,0 +1,38 @@
+
+<div class="content">
+    <div class="left">
+        <span>Configuration</span>
+            <ul>
+                <li class="current"><a href="<?php echo $this->url('mysqlcfg',array('action' => 'index'))?>">MySQLInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'userInfo'))?>">UserInfo</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'clientConn'))?>">Client Connections</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showVars'))?>">show variables</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'showStatus'))?>">show status</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'loginRecord'))?>">Login record</a></li>
+                <li><a href="<?php echo $this->url('mysqlcfg',array('action' => 'slowQuery'))?>">slow query</a></li>
+            </ul>
+    </div>
+        <div class="right">
+            <span>Information</span>
+            <div class="div1"></div>
+            <div class="div2"></div>
+            <ul>
+                <li class="li"><p class="l1">Connection Name</p><p class="l1"><?php echo mysql_get_host_info(); ?></p></li>
+                <li class="li"><p class="l1">Host</p><p class="l1"><?php echo $val[0];?></p></li>
+                <li class="li"><p class="l1">Socket</p><p class="l1"><?php echo $val[1];?></p></li>
+                <li class="li"><p class="l1">Port</p><p class="l1"><?php echo $val[2];?></p></li>
+                <li class="li"><p class="l1">Version</p><p class="l1"><?php echo $val[3];?></p></li>
+                <li class="li"><p class="l1">Compiled For</p><p class="l1"><?php echo $val[4];?></p></li>
+                <li class="li"><p class="l1">Engine</p><p class="l1"><?php echo $val[5];?></p></li>
+                <li class="li"><p class="l1">Collation</p><p class="l1"><?php echo $val[6];?></p></li>
+                <li class="li"><p class="l1">Base Directory</p><p class="l1"><?php echo $val[7];?></p></li>
+                <li class="li"><p class="l1">Data Directory</p><p class="l1"><?php echo $val[8];?></p></li>
+                <li class="li"><p class="l1">Plugin Directory</p><p class="l1"><?php echo $val[9];?></p></li>
+                <li class="li"><p class="l1">Tmp Directory</p><p class="l1"><?php echo $val[10];?></p></li>
+                <li class="li"><p class="l1">Error Log</p><p class="l1"><?php echo $val[11];?></p></li>
+                <li class="li"><p class="l1">General Log</p><p class="l1"><?php echo $val[12];?></p></li>
+                <li class="li"><p class="l1">Slow Query Log</p><p class="l1"><?php echo $val[13];?></p></li>
+                <li class="li"><p class="l1">Running Time</p><p class="l1"><?php echo $uptime;?></p></li>
+            </ul>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<?php echo "<script type='text/javascript'>tbdatadelete='".$this->url('database',array('action' => 'tbdatadelete'))."';</script>"  ?>
+<style type="text/css">
+            #tooltip{
+                 border: #abab98 1px solid;
+                 display: none;
+                 font-size: 12px;
+                 z-index: 1000;
+                 background: #5f5f52;
+                 color: #ffffff;
+                 line-height: 16px;
+                 font-family: "Tahoma";
+                 position: absolute;
+                 text-align: left;
+            }
+</style>
+<script type="text/javascript">
+            $(function() {
+                   $("p").each(function() {//这里是控制标签
+                                if (this.title) {
+                                    var c = this.title; //把title的赋给自定义属性 myTilte ，屏蔽自带提示
+                                    var a = 30; //设置提示框相对于偏移位置，防止遮挡鼠标
+                                    $(this).mouseover(function(e) { //鼠标移上事件
+                                        this.title = "";
+                                        $("body").append('<span id="tooltip">'+ c + '</span>'); //创建提示框,添加到页面中
+                                        $("#tooltip").css({
+                                             left: (e.pageX + a) + "px",
+                                             top: (e.pageY + a/3) + "px"
+                                        }).show() //设置提示框的坐标，并显示
+                                    }).mouseout(function() { //鼠标移出事件
+                                        this.title = c; //重新设置title
+                                        $("#tooltip").remove() //移除弹出框
+                                    }).mousemove(function(e) { //跟随鼠标移动事件
+                                        $("#tooltip").css({
+                                            left: (e.pageX + a) + "px",
+                                            top: (e.pageY + a/3) + "px"
+                                        })
+                                    })
+                                }
+                            })
+                });
+</script>
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span><a href="<?php echo $this->url('database',array('action' => 'tblist', 'dbname' => $dbname,'tbname'=>$tbname)) ?>"><?php echo $dbname.".".$tbname;?></a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->url('database',array('action' => 'tbdataadd', 'dbname' => $dbname,'tbname'=>$tbname)) ?>" style="align: right;">add tbdata</a></span>
+        <div class="scroll">
+            <ul class="sty">
+            <li class="li">
+                <?php
+                     while($r=mysql_fetch_array($re)){
+                         for($i=0;$i<mysql_num_fields($re);$i++){
+                ?>
+                <p class="l4" ><?php echo htmlentities((strlen($r[$i])>15)?substr($r[$i],0,15)."...":$r[$i]);?></p>
+                <?php
+                         }
+                     }
+                ?>
+                <p class="l5" title="edit">edit</p>
+                <p class="l5" title="delete">delete</p>
+            </li>
+            <?//php 
+                $row = mysql_fetch_row($result);
+                print_r($row);
+           ?>
+            <?php 
+                    $i=1;
+                    while($row = mysql_fetch_array($result)){
+            ?>
+           <li class="li" id="del<?php echo $i; ?>">
+                    <?php for($j=0;$j<count($row)/2;$j++){?>
+                     <p class="l4" title="<?php echo htmlentities($row[$j]); ?>"><?php echo (strlen($row[$j])>10)?substr($row[$j],0,10)."...":$row[$j]; ?></p>
+                    <?php }?>
+                    <p class="l5" title="edit"><a href="<?php echo $this->url('database',array('action' => 'tbdataedit', 'dbname' => $dbname, 'tbname' => $tbname,'column'=>$pri,'prival'=>$row[$pri])); ?>">edit</a></p>
+                    <p class="l5" title="delete"><a href="#" class="drop" title="<?php echo $dbname."/".$tbname."/tbdatadelete/".$pri."/".$row[$pri];?>" id="<?php echo $i;?>">delete</a></p>
+           </li>
+            <?php $i++;} ?>  
+        </ul>
+    </div>
+</div>
+</div>
+<div class="dropdialog"></div>

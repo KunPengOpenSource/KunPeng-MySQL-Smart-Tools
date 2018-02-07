@@ -1,0 +1,26 @@
+
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li class="current"><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <ul>
+            <li class="li"><p class="l6">FILESYSTEM</p><p class="l6">SIZE</p><p class="l6">USED</p><p class="l6">AVAIL</p><p class="l6">USE%</p><p class="l6">MOUNTED</p>
+            <?php for($i=0;$i<count($data1);$i++){?>
+                <li class="li"><p class="l6"><?php echo $data1[$i][0];?></p><p class="l6"><?php echo $data1[$i][1];?></p><p class="l6"><?php echo $data1[$i][2];?></p><p class="l6">
+                <?php echo $data1[$i][3];?></p><p class="l6"><?php echo $data1[$i][4];?></p><p class="l6"><?php echo $data1[$i][5];?></p></li>
+            <?php }?>
+        </ul>
+    </div>
+</div>

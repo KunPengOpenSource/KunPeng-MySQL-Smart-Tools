@@ -1,0 +1,32 @@
+
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li class="current"><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">  
+        <span>Information</span>
+        <ul>
+            <li class="li">
+                <p class="l8">USER</p><p class="l2">PID</p><p class="l5">%CPU</p><p class="l5">%MEM</p><p class="l2">VSZ</p><p class="l5">RSS</p>
+                <p class="l5">TTY</p><p class="l5">STAT</p><p class="l5">START</p><p class="l5">TIME</p><p class="l10">COMMAND</p>
+            </li>
+            <?php for($i=0;$i<count($data);$i++){?>
+                <li class="li">
+                    <p class="l8" title="<?php echo $data[$i][0];?>"><?php echo substr($data[$i][0],0,8);?></p><p class="l2"><?php echo $data[$i][1];?></p><p class="l5"><?php echo $data[$i][2];?></p><p class="l5"><?php echo $data[$i][3];?></p>
+                    <p class="l2"><?php echo $data[$i][4];?></p><p class="l5"><?php echo $data[$i][5];?></p><p class="l5"><?php echo $data[$i][6];?></p><p class="l5"><?php echo $data[$i][7];?></p>
+                    <p class="l5"><?php echo $data[$i][8];?></p><p class="l5"><?php echo $data[$i][9];?></p><p class="l10" title="<?php echo $data[$i][10];?>"><?php echo substr($data[$i][10],0,20);?></p>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>

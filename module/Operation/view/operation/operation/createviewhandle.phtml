@@ -1,0 +1,27 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="#">DataBase</a></li>
+            <li><a href="<?php echo $this->url('operation',array('action' => 'createview'))?>">Views</a></li>
+            <li class="current"><a href="<?php echo $this->url('operation',array('action' => 'createtrigger'))?>">Trigger</a></li>
+            <li><a href="#">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Create View</span>
+        
+        <div style="height: 500px;">
+            
+            <?php
+                while ($row = mysql_fetch_row($result)) {
+                    print_r($row);
+                }
+            ?>
+
+        </div>
+        
+    </div>
+</div>
+

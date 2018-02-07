@@ -1,0 +1,41 @@
+<div class="content">
+    <div class="left">
+        <span>Linux Status</span>
+        <ul>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'generalInfo'))?>">General Info</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'ram'))?>">Ram</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'diskUsage'))?>">Disk Usage</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'software'))?>">Software</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'users'));?>">Users</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'online'));?>">Online</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'lastLogin'));?>">Last Login</a></li>
+            <li><a href="<?php echo $this->url('linuxstatus',array('action' => 'processes'));?>">Processes</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Information</span>
+        <div class="linuxtitle">Linux Status:</div>
+                <div class="linuxsummary">
+                    <div class="linuxlogo"></div>
+                    <div class="disk">
+                        <ul>
+                            <li class="li"><p class="l6">Filesystem</p><p class="l9">Size</p></li>
+                            <?php for($i=0;$i<count($data1);$i++){?>
+                                <li class="li">
+                                    <p class="l6"><?php echo $data1[$i][0];?></p>
+                                    <p class="l9"><?php echo $data1[$i][1];?></p>
+                                </li>
+                            <?php }?>
+                        </ul>
+                    </div>
+                    <div class="software">
+                        <ul>
+                            <li class="li"><p class="l6">Software</p><p class="l4">Installaction</p></li>
+                            <?php for($i=0;$i<5;$i++){?>
+                                <li class="li"><p class="l6"><?php echo $data[$i][0];?></p><p class="l4"><?php echo $data[$i][1];?></p></li>
+                            <?php }?>
+                        </ul>
+                    </div>
+                </div>
+    </div>
+</div>

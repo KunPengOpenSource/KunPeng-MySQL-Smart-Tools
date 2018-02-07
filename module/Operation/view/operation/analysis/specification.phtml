@@ -1,0 +1,70 @@
+<?php
+    echo "<script type='text/javascript'>ylan='".$this->url('analysis',array('action' => 'ylan'))."'</script>";
+
+    $tid = $specification;
+    //include($this->basePath() . "/charts/switchtid.php");
+    include('switchtid.php');
+    echo $this->headScript();
+    
+    for($i=6;$i>0;$i--){
+        $this->headScript()
+            ->prependFile($this->basePath() . "/charts/charts.php?tid=$tid&id=$i");
+    }
+    
+    //<!-- Le styles -->
+    echo $this->headLink()
+            ->prependStylesheet($this->basePath() . '/js/jqplot/jquery.jqplot.min.css')
+        ;
+
+    //<!-- Scripts -->
+    $this->headScript()
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.dateAxisRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.enhancedLegendRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasAxisLabelRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasAxisTickRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasTextRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.highlighter.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.categoryAxisRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jquery.jqplot.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jquery-1.8.3.min.js')
+        ; 
+    
+?>
+<div class="content">
+    <div class="left">
+        <span>Performance</span>
+        <ul>
+            <?php foreach ($specifications as $k => $specification) { ?>
+            <li><a id="<?php echo 'list'.$k;?>" href="<?php echo $this->url('analysis',array('action' => 'specification', 'specification' => $k ))?>"><?php echo $specification ?></a></li>
+            <?php } ?>
+        </ul>
+    </div>
+    <div class="right">
+        <span>MySQL <?php echo $name; ?> Charts</span>
+        <div id="charts">
+            <?php for($i=1;$i<7;$i++){ ?>
+            <div id="chart">
+                <div id="chart<?php echo $i; ?>" class="chart"></div>
+                <div class="option">
+                    <div><a href="###" class="ylan" id="<?php echo $i; ?>"><img id="<?php echo $tid; ?>" src="<?php echo $this->basePath('img/yl_01.png') ?>" title="datalist"></a></div>
+                    <div><a href="<?php echo $this->url('analysis', array('action' => 'download')); ?>?tid=<?php echo $tid; ?>&id=<?php echo $i; ?>"><img src="<?php echo $this->basePath('img/xz_01.png') ?>" title="download"></a></div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<div id="ylanct">
+    <div id="formhead">Detailed Data<a href="" id='close'></a></div>
+    <div id="formcontent">
+        <table>
+            <tr>
+                <td>Time</td>
+                <?php foreach ($options as $value) {
+                    echo "<td>" . $value . "</td>";
+                }?>
+            </tr>
+        </table>
+    </div>
+</div>
+

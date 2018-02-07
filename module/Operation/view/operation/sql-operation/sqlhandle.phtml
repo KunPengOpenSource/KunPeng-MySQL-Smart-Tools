@@ -1,0 +1,44 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="#">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index')) ?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index')) ?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index')) ?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation',array('action' => 'index')); ?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>SQL Operation</span>
+        <?php
+        $rs = array();
+        if(!isset($result)){
+            print_r($error);
+        }else{
+            if($result == 'true'){
+                echo $msg;
+            }else{
+                $fieldnum = mysql_num_fields($result);
+                $field = array();
+                ?>
+                <div class="scroll">
+                    <ul class="sty">
+                        <li class="li">
+                            <?php for($i = 0; $i < $fieldnum; $i++){ ?>
+                                <p class="l3" title="<?php echo mysql_field_name($result,$i); ?>"><?php echo mysql_field_name($result,$i); ?></p>
+                            <?php } ?>
+                        </li>
+                        <?php while($row = mysql_fetch_array($result)){ ?>
+                            <li class="li">
+                                <?php for($i = 0; $i < $fieldnum; $i++){ ?>
+                                    <p class="l3" title="<?php echo $row[$i]; ?>"><?php echo $row[$i]; ?></p>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php }
+            } ?>
+        </div>
+    </div>
+</div>

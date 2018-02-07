@@ -1,0 +1,81 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li class="current"><a href="<?php echo $this->url('user',array('action' => 'index'))?>">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Create User</span>
+        <div class="usercontent">
+            <form method="post" action="<?php echo $this->url('user',array('action' => 'createuserhandle')); ?>">
+                <div class="lblf">USER NAME</div>
+                <div class="inprt">
+                    <input type="text" name="username" value="" id="username">
+                </div>
+                <div class="lblf">HOST</div>
+                <div class="inprt">
+                    <input type="text" name="host" value="">
+                </div>
+                <div class="lblf">PASSWORD</div>
+                <div class="inprt">
+                    <input type="password" name="password" value="" id="password">
+                </div>
+                <div class="lblf">CONFIRM PASSWORD</div>
+                <div class="inprt">
+                    <input type="password" name="confirmpass" value="" id="confirmpass" onblur="var pass=document.getElementById('password').value;var cpass=document.getElementById('confirmpass').value;if(pass!==cpass){alert('The two passwords do not match');}">
+                </div>
+                <div class="cbox" style="border: 1px solid #cccccc;float:left;width:550px;margin-top: 10px;margin-bottom: 10px;text-align: left;">
+                    <div class="acheck" style="margin: 5px 10px 0;"><input type="checkbox" name="all" />check all / uncheck all</div>
+                    <div class="data" style="width:100px;border:1px solid #666666; float:left;margin:10px 5px 10px 10px;padding: 8px;">
+                        <input type="checkbox" name="checkbox[]" value="select">SELECT
+                        <br/><input type="checkbox" name="checkbox[]" value="insert">INSERT
+                        <br/><input type="checkbox" name="checkbox[]" value="update">UPDATE
+                        <br/><input type="checkbox" name="checkbox[]" value="delete">DELETE
+                        <br/><input type="checkbox" name="checkbox[]" value="file">FILE
+                    </div>
+                    <div class="structure" style="width:200px;border:1px solid #666666;float:left;margin:10px 5px 10px 5px;padding: 8px;">
+                        <input type="checkbox" name="checkbox[]" value="create">CREATE
+                        <br/><input type="checkbox" name="checkbox[]" value="alter">ALTER
+                        <br/><input type="checkbox" name="checkbox[]" value="index">INDEX
+                        <br/><input type="checkbox" name="checkbox[]" value="drop">DROP
+                        <br/><input type="checkbox" name="checkbox[]" value="create temporary tables">CREATE TEMPORARY TABLES
+                        <br/><input type="checkbox" name="checkbox[]" value="show view">SHOW VIEW
+                        <br/><input type="checkbox" name="checkbox[]" value="create routine">CREATE ROUTINE
+                        <br/><input type="checkbox" name="checkbox[]" value="alter routine">ALTER ROUTINE
+                        <br/><input type="checkbox" name="checkbox[]" value="execute">EXECUTE
+                        <br/><input type="checkbox" name="checkbox[]" value="create view">CREATE VIEW
+                        <br/><input type="checkbox" name="checkbox[]" value="event">EVENT
+                        <br/><input type="checkbox" name="checkbox[]" value="trigger">TRIGGER
+                    </div>
+                    <div class="manage" style="width:155px;border:1px solid #666666; float:left;margin:10px 5px 10px 5px;padding: 8px;">
+                        <input type="checkbox" name="checkbox[]" value="grant">GRANT
+                        <br/><input type="checkbox" name="checkbox[]" value="super">SUPER
+                        <br/><input type="checkbox" name="checkbox[]" value="process">PROCESS
+                        <br/><input type="checkbox" name="checkbox[]" value="reload">RELOAD
+                        <br/><input type="checkbox" name="checkbox[]" value="shutdown">SHUTDOWN
+                        <br/><input type="checkbox" name="checkbox[]" value="show databases">SHOW DATABASES
+                        <br/><input type="checkbox" name="checkbox[]" value="lock tables">LOCK TABLES
+                        <br/><input type="checkbox" name="checkbox[]" value="references">REFERENCES
+                        <br/><input type="checkbox" name="checkbox[]" value="replication client">REPLICATION CLIENT
+                        <br/><input type="checkbox" name="checkbox[]" value="replication slave">REPLICATION SLAVE
+                        <br/><input type="checkbox" name="checkbox[]" value="create user">CREATE USER
+                    </div>
+                </div>
+                <a href="<?php echo $this->url('user',array('action' => 'index')); ?>"><input type="button" value="back" id="submit"></a>
+                <input type="submit" value="go" id="submit">
+            </form>
+            <div id="mes" style="width:500px;float:left;display: none;">
+                <?php 
+                    if($row=  mysql_fetch_array($re)){
+                        echo "the user '$row[1]'@'$row[0]' already exists ！" ;
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<?php
+    //<!-- Le styles -->
+    echo $this->headLink()
+            ->prependStylesheet($this->basePath() . '/js/jqplot/jquery.jqplot.min.css')
+        ;
+
+    //<!-- Scripts -->
+    echo $this->headScript()
+            ->prependFile($this->basePath() . "/charts/charts.php?tid=2&id=3")
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.dateAxisRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.enhancedLegendRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasAxisLabelRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasAxisTickRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.canvasTextRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.highlighter.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jqplot.categoryAxisRenderer.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jquery.jqplot.min.js')
+            ->prependFile($this->basePath() . '/js/jqplot/jquery-1.8.3.min.js')
+        ;
+    
+?>
+<div class="content">
+    <div class="top">
+        <div class="tleft">
+            <div class="ttop">
+                <span>Local Information about MySQL</span>
+            </div>
+            <div class="mysqlinfo"></div>
+            <ul>
+                <li>
+                    <span class="span1">Socket:</span>
+                    <span class="span2"><?php echo $socket; ?></span>
+                </li>
+                <li>
+                    <span class="span1">Port:</span>
+                    <span class="span2"><?php echo $port; ?></span>
+                </li>
+                <li>
+                    <span class="span1">Version:</span>
+                    <span class="span2"><?php echo $version; ?></span>
+                </li>
+                <li>
+                    <span class="span1">Engine:</span>
+                    <span class="span2"><?php echo $engine;?></span>
+                </li>
+                <li>
+                    <span class="span1">Collation:</span>
+                    <span class="span2"><?php echo $collation; ?></span>
+                </li>
+            </ul>
+        </div>
+        <div class="tcenter">
+            <div class="ttop">
+                <span>General Info Linux</span>
+            </div>
+            <ul>
+                <li>
+                    <span class="span1">OS:</span>
+                    <span class="span2"><?php echo php_uname('s').  php_uname('r');?></span>
+                </li>
+                <li>
+                    <span class="span1">Uptime:</span>
+                    <span class="span2"><?php echo $uptime; ?></span>
+                </li>
+                <li>
+                    <span class="span1">ServerTime:</span>
+                    <span class="span2"><?php date_default_timezone_set("Asia/Shanghai");echo date('Y-m-d H:i:s',time());?></span>
+                </li>
+                <li>
+                    <span class="span1">Hostname:</span>
+                    <span class="span2"><?php echo php_uname( 'n' );?></span>
+                </li>
+                <li>
+                    <span class="span1">IP address:</span>
+                    <span class="span2"><?php echo $_SERVER["HTTP_HOST"] ;?></span>
+                </li>
+            </ul>
+        </div>
+        <div class="tright">
+            <div class="ttop">
+                <span>Performance</span>
+            </div>
+            <ul>
+                <?php foreach($specifications as $k => $specification){?>
+                    <li>
+                        <span class="span2">
+                            <a href="<?php echo $this->url('analysis', array('action' => 'specification', 'specification' => $k)); ?>"><?php echo $specification; ?></a>
+                        </span>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+    </div>
+    <div class="ccon">
+        <div class="tccon1">
+            <span class="span1">Bytes Of MySQL Performence</span>
+            <span class="span2"><a href="<?php echo $this->url('analysis', array('action' => 'index')); ?>">MORE</a></span>
+            <span class="span3"><hr></span>
+        </div>
+        <div class="cconleft">
+          <div id="charts">
+            <div id="chart">
+                <div id="chart<?php echo '3'; ?>" class="chart"></div>                    
+            </div>
+        </div>  
+        </div>
+        <div class="cconright">
+            <div class="bytes">
+                <span><?php echo $bytes_sent; ?>Kb/s</span> 
+            </div>
+        </div>
+    </div>
+</div>

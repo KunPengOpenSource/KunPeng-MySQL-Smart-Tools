@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="left">
+        <span>Management</span>
+        <ul>
+            <li class="current"><a href="<?php echo $this->url('database',array('action' => 'index'))?>">DataBase</a></li>
+            <li><a href="<?php echo $this->url('views',array('action' => 'index'))?>">Views</a></li>
+            <li><a href="<?php echo $this->url('triggers',array('action' => 'index'))?>">Triggers</a></li>
+            <li><a href="<?php echo $this->url('user',array('action' => 'index'))?> ">User</a></li>
+            <li><a href="<?php echo $this->url('sqloperation', array('action' => 'index'));?>">SQL Operation</a></li>
+        </ul>
+    </div>
+    <div class="right">
+        <span>Database<a href="<?php echo $this->url('database',array('action' => 'createtable', 'dbname' => $dbname)) ?>" style="align: right;">Create Table</a></span>
+        <form name="import" action="<?php echo $this->url('database', array('action' => 'tbimporthandle', 'dbname' => $dbname)); ?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="dbname" value="<?php echo $dbname; ?>" />
+            <input type="file" name="importfile" />
+            <input type="submit" name="submit" value="import" />
+        </form>
+    </div>
+</div>
+
